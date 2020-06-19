@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thread Downloader for Reddit</title>
+
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.6/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.6/semantic.min.js"></script>
+</head>
+<body>
+    <h1 class="ui center aligned header">Thread Downloader for Reddit</h1>
+
+    <div class="ui container">
+        <div class="ui one column centered grid ">
+            <form method="POST" class="ui form">
+                <div class="ui left icon fluid input field">
+                    <input name="url" type="url" placeholder="Reddit thread URL" required>
+                    <i class="reddit icon"></i>
+                </div>
+                <div class="h-captcha field" data-sitekey="eb11531a-47c2-44d4-bd4c-f4c2d94d2a44"></div>
+                <button type="submit" class="ui button field">Download</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+flask
+praw
+markdown
+requests
+weasyprint
+pyyaml
