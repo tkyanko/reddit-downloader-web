@@ -1,3 +1,5 @@
+import os
+import re
 from urllib.parse import urlparse
 
 from flask import (
@@ -15,10 +17,12 @@ import yaml
 
 app = Flask(__name__)
 
+file_dir = os.path.dirname(__file__)
+
 
 class Config:
     def __init__(self):
-        with open("secrets.yaml", 'r') as stream:
+        with open(os.path.join(file_dir, "secrets.yaml"), 'r') as stream:
             try:
                 secrets = yaml.safe_load(stream)
             except yaml.YAMLError as exc:
@@ -32,6 +36,8 @@ class Config:
 
 CONFIG = Config()
 
+PATH_REGEX = re.compile(r'/r/\S+/comments/\S+/\S+/')
+
 
 def clean_comment(comment: str) -> str:
     return comment.replace('\n', '  ')
@@ -40,9 +46,7 @@ def clean_comment(comment: str) -> str:
 def is_url_ok(url: str) -> bool:
     parsed_url = urlparse(url)
 
-    if parsed_url.netloc != 'www.reddit.com':
-        raise RuntimeError("URL must be to \"www.reddit.com\"")
-    if not parsed_url.path:
+    if parsed_url.netloc != 'www.reddit.com' or not parsed_url.path or not PATH_REGEX.match(parsed_url.path):
         raise RuntimeError("URL must be the full URL of the thread. "
                            "For example: https://www.reddit.com/r/subreddit/comments/abc123/thread_title/")
 
@@ -50,7 +54,7 @@ def is_url_ok(url: str) -> bool:
 
 
 def download(comment_url) -> None:
-    reddit = praw.Reddit(user_agent='Thread Backup Maker for Reddit',
+    reddit = praw.Reddit(user_agent='User-Agent: ThreadBackupMakerforReddit:v1.0 (by /u/pmheavy)',
                          client_id=CONFIG.reddit_client_id, client_secret=CONFIG.reddit_secret_key)
     submission = reddit.submission(url=comment_url)
 
@@ -91,7 +95,7 @@ def my_form_post():
     data = {'secret': CONFIG.hcaptcha_secret_key, 'response': token}
     hcaptcha_response = requests.post(url=CONFIG.hcaptcha_verify_url, data=data).json()
     if not hcaptcha_response['success']:
-        return "Error: Not Human"
+        return render_template('error.html', error_message="Captcha not passed.")
 
     try:
         if is_url_ok(url):
@@ -102,7 +106,11 @@ def my_form_post():
             response.headers["Content-Disposition"] = f"attachment; filename={url}.pdf"
             return response
     except RuntimeError as e:
-        return str(e)
+        return render_template('error.html', error_message=str(e))
+    except praw.reddit.ClientException:
+        return render_template('error.html', error_message="Unable to collect the thread.")
+    except praw.reddit.RedditAPIException:
+        return render_template('error.html', error_message="Unable to connect to Reddit.")
 
 
 if __name__ == '__main__':

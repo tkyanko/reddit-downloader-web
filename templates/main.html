@@ -14,15 +14,33 @@
     <h1 class="ui center aligned header">Thread Downloader for Reddit</h1>
 
     <div class="ui container">
-        <div class="ui one column centered grid ">
-            <form method="POST" class="ui form">
-                <div class="ui left icon fluid input field">
-                    <input name="url" type="url" placeholder="Reddit thread URL" required>
-                    <i class="reddit icon"></i>
-                </div>
-                <div class="h-captcha field" data-sitekey="eb11531a-47c2-44d4-bd4c-f4c2d94d2a44"></div>
-                <button type="submit" class="ui button field">Download</button>
-            </form>
+        <div class="ui one column centered grid">
+            <div class="sixteen wide column centered row">
+                <h2>How to use</h2>
+                <p>
+                    Enter the full URL of the Reddit thread in the form (Ex. https://www.reddit.com/r/subreddit/comments/abc123/thread_title/).
+                    Pass the CAPTCHA to confirm you're not a bot, and press the "Download" button.
+                    After the thread is accessed and processed, a PDF download will automatically be available.
+                    Note that for large threads, it may take a significant amount of time for the download to be ready to start.
+                </p>
+            </div>
+            <div class="sixteen wide column centered row">
+                <form method="POST" class="ui form">
+                    <div class="ui left icon fluid input field">
+                        <input name="url" type="url" placeholder="Reddit thread URL" required pattern="https://www.reddit.com/r/\S+/comments/\S+/\S+/">
+                        <i class="reddit icon"></i>
+                    </div>
+                    <div id="hcaptcha" class="h-captcha field" data-sitekey="eb11531a-47c2-44d4-bd4c-f4c2d94d2a44"></div>
+                    <button type="submit" class="ui button field">Download</button>
+                </form>
+            </div>
+            <div class="sixteen wide column centered row">
+                <h2>About</h2>
+                <p>
+                    Thread Downloader for Reddit is a third party client for Reddit and not associated with Reddit, Inc..
+                    All content downloaded is copyright its respective owners.
+                </p>
+            </div>
         </div>
     </div>
 </body>
