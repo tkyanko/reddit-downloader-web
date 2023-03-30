@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "reddit-downloader-web"
+version = "0.2.0"
+description = "A web based Reddit thread downloader."
+authors = ["Thomas Kyanko <tkyanko@gmail.com>"]
+readme = "README.md"
+packages = [{include = "reddit_downloader_web"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^2.2.3"
+praw = "^7.7.0"
+Markdown = "^3.4.3"
+requests = "^2.28.2"
+weasyprint = "^58.1"
+PyYAML = "^6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
