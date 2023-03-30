@@ -22,7 +22,7 @@ file_dir = os.path.dirname(__file__)
 
 class Config:
     def __init__(self):
-        with open(os.path.join(file_dir, "secrets.yaml"), 'r') as stream:
+        with open(os.path.join(file_dir, "../secrets.yaml"), 'r') as stream:
             try:
                 secrets = yaml.safe_load(stream)
             except yaml.YAMLError as exc:
