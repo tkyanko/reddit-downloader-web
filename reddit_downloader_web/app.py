@@ -61,7 +61,7 @@ def is_url_ok(url: str) -> bool:
 
 def download(comment_url) -> None:
     reddit = praw.Reddit(
-        user_agent="User-Agent: ThreadBackupMakerforReddit:v1.0 (by /u/pmheavy)",
+        user_agent="User-Agent: ThreadBackupMakerForReddit:v0.2.0 (by /u/pmheavy)",
         client_id=CONFIG.reddit_client_id,
         client_secret=CONFIG.reddit_secret_key,
     )
