@@ -4,7 +4,7 @@ version = "0.2.0"
 description = "A web based Reddit thread downloader."
 authors = ["Thomas Kyanko <tkyanko@gmail.com>"]
 readme = "README.md"
-packages = [{include = "reddit_downloader_web"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
