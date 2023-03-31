@@ -1,6 +1,6 @@
 # From https://stackoverflow.com/a/72465422
 
-FROM python:3.10-slim as python-base
+FROM python:3.10 as python-base
 
 # https://python-poetry.org/docs#ci-recommendations
 ENV POETRY_VERSION=1.4.1
@@ -12,9 +12,6 @@ ENV POETRY_CACHE_DIR=/opt/.cache
 
 # Create stage for Poetry installation
 FROM python-base as poetry-base
-
-RUN apt-get -y update
-RUN apt-get install -y libpango-1.0-0 libpangoft2-1.0-0 libgtk-3-0 && rm -rf /var/lib/apt/lists/*
 
 # Creating a virtual environment just for poetry and install it with pip
 RUN python3 -m venv $POETRY_VENV \
